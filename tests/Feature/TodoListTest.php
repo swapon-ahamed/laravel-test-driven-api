@@ -16,6 +16,13 @@ class TodoListTest extends TestCase
      * @return void
      */
 
+     private $list;
+     public function setUp():void {
+        // Preparation
+        parent::setUp();
+        $this->list = TodoList::factory()->create(['name' => 'My list']);
+     }
+
     public function test_fetch_all_todo_list()
     {
         // $this->withoutExceptionHandling();
@@ -27,9 +34,9 @@ class TodoListTest extends TestCase
         
         // action
        /* TodoList::create(['name' => 'My Post']); */
-        $list = TodoList::factory()->create(['name' => 'My list']);
+        
 
-        $response = $this->getJson(route('todo-list.store'));
+        $response = $this->getJson(route('todo-list.index'));
 
         // assertion 
         // dd($response->json()[0]['name']);
@@ -40,11 +47,20 @@ class TodoListTest extends TestCase
 
     public function test_fetch_single_todo_list(){
 
-        $list = TodoList::factory()->create();
-        $response = $this->getJson(route('todo-list.show',$list->id))
+        // $list = TodoList::factory()->create();
+        $response = $this->getJson(route('todo-list.show',$this->list->id))
             ->assertOk()
             ->json();
         // $response->assertOk();
-        $this->assertEquals($response['name'], $list->name);
+        $this->assertEquals($response['name'], $this->list->name);
+    }
+
+    public function test_store_single_todo_list(){
+        $list = TodoList::factory()->make(); // not store in database
+        $response = $this->postJson(route('todo-list.store',['name' =>$list->name ]))
+            ->assertCreated()
+            ->json();
+        $this->assertEquals($list->name,$response['name']);
+        // $this->assertDatabaseHas('todo_lists', ['name' => 'My post in db']);
     }
 }
