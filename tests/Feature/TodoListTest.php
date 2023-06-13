@@ -20,7 +20,7 @@ class TodoListTest extends TestCase
      public function setUp():void {
         // Preparation
         parent::setUp();
-        $this->list = TodoList::factory()->create(['name' => 'My list']);
+        $this->list = $this->createTodoList(['name' => 'My list']);
      }
 
     public function test_fetch_all_todo_list()
