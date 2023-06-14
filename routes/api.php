@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TodoListController;
 
 /*
@@ -42,3 +43,6 @@ Route::Resource('todo-list', TodoListController::class);
 //     ->name('todo-list.destroy');
 // Route::patch('todo-list/{list}',[TodoListController::class, 'update'])
 //     ->name('todo-list.update');
+
+
+Route::get('task', [TaskController::class, 'index'])->name('task.index');
