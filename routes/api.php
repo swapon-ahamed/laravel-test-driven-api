@@ -44,5 +44,7 @@ Route::Resource('todo-list', TodoListController::class);
 // Route::patch('todo-list/{list}',[TodoListController::class, 'update'])
 //     ->name('todo-list.update');
 
-
-Route::get('task', [TaskController::class, 'index'])->name('task.index');
+Route::Resource('task', TaskController::class);
+// Route::get('task', [TaskController::class, 'index'])->name('task.index');
+// Route::post('task', [TaskController::class, 'store'])->name('task.store');
+// Route::delete('task/{task}', [TaskController::class, 'destroy'])->name('task.destroy');
